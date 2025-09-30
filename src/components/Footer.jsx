@@ -20,12 +20,18 @@ function Footer(){
 
             <div>
             <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
-                <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
+            <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
             </div>
 
-            <div></div>
+            <div>
+            <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
+            <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
+            </div>
 
-            <div></div>
+            <div>
+            <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
+            <div className="text-sm text-gray-500">© 2025 Swiggy Limited</div>
+            </div>
         </div>
     </div>
     </footer>
