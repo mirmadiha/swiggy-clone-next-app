@@ -1,3 +1,4 @@
+import { FaInstagram, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
 function Footer(){
 
   const data = {
@@ -22,7 +23,12 @@ function Footer(){
             { text: "About Us", url: "/about" },
             { text: "Careers", url: "/careers" },
             { text: "Team", url: "/team" },
-            { text: "Swiggy One", url: "/swiggy-one" }
+            { text: "Swiggy One", url: "/swiggy-one" },
+            { text: "Swiggy Instamart", url: "/swiggy-instamart" },
+            { text: "Swiggy Dineout", url: "/swiggy-dineout" },
+            { text: "Swiggy Genie", url: "/swiggy-genie" },
+            { text: "Minis", url: "/minis" },
+            { text: "Pyng", url: "/pyng" }
           ]
         }
       ]
@@ -30,7 +36,7 @@ function Footer(){
     {
       sections: [
         {
-          title: "Contact",
+          title: "Contact Us",
           links: [
             { text: "Help & Support", url: "/support" },
             { text: "Partner with us", url: "/partner" },
@@ -62,9 +68,32 @@ function Footer(){
           ]
         }
       ]
+    },
+
+    {
+      sections: [
+        {
+          title: "Life at Swiggy",
+          links: [
+            { text: "Explore with Swiggy", url: "/explore-with-swiggy" },
+            { text: "Swiggy News", url: "/swiggy-news" },
+            { text: "Snackables", url: "/snackables" }
+          ]
+        },
+
+        {title: "Socials",
+        links: [
+          { text: "Instagram", icon: FaInstagram },
+          { text: "Twitter", icon: FaTwitter },
+          { text: "LinkedIn", icon: FaLinkedin },
+          { text: "GitHub", icon: FaGithub },
+        ]
+        }
+      ]
     }
   ]
 };
+
 
     return (
     <footer className="w-full h-full bg-[#f0f0f5]">
@@ -90,7 +119,7 @@ function Footer(){
             </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo and Copyright */}
           <div className="flex flex-col col-span-2 md:col-span-1">
             <img 
@@ -102,8 +131,6 @@ function Footer(){
               {data.branding.copyright}
             </p>
           </div>
-
-          {/* Dynamic Columns with Sections */}
           {data.columns.map((column, columnIndex) => (
             <div key={columnIndex} className="flex flex-col gap-8">
               {column.sections.map((section) => (
@@ -127,6 +154,7 @@ function Footer(){
               ))}
             </div>
           ))}
+
         </div>
       </div>
     </footer>

@@ -127,7 +127,7 @@ function Header(){
         <header className="p-[15px] shadow-xl sticky top-0 bg-white z-[9999]">
             <div className='mx-30 flex items-center'>
                 <Link href="/" className='w-[60px] block'>
-                    <img src="/images/logo.png" alt="logo" className="w-full cursor-pointer" />
+                    <img src="/logo.png" alt="logo" className="w-full cursor-pointer" />
                 </Link>
                 <div className="flex items-center ml-10 cursor-pointer" onClick={showSideMenu}>
                     <div className="text-xl font-medium border-b-2 text-black hover:text-[#ef4444] cursor-pointer transition-colors duration-200"> other </div>
