@@ -1,4 +1,4 @@
-import { FaInstagram, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaInstagram, FaTwitter, FaLinkedin, FaFacebook, FaPinterest } from "react-icons/fa";
 function Footer(){
 
   const data = {
@@ -81,13 +81,15 @@ function Footer(){
           ]
         },
 
-        {title: "Socials",
-        links: [
-          { text: "Instagram", icon: FaInstagram },
-          { text: "Twitter", icon: FaTwitter },
-          { text: "LinkedIn", icon: FaLinkedin },
-          { text: "GitHub", icon: FaGithub },
-        ]
+        {
+          title: "Socials",
+          links: [
+            { text: "LinkedIn", icon: FaLinkedin, url: "https://www.linkedin.com/company/swiggy-in/posts/?feedView=all" },
+            { text: "Instagram", icon: FaInstagram, url: "https://instagram.com/swiggyindia" },
+            { text: "GitHub", icon: FaFacebook, url: "https://www.facebook.com/swiggy.in/" },
+            { text: "Twitter", icon: FaPinterest, url: "https://in.pinterest.com/swiggyindia/" },
+            { text: "Twitter", icon: FaTwitter, url: "https://x.com/Swiggy" }
+          ]
         }
       ]
     }
@@ -95,36 +97,34 @@ function Footer(){
 };
 
 
-    return (
+  return (
     <footer className="w-full h-full bg-[#f0f0f5]">
-    <div className="max-w-[1200px] mx-auto px-2 pb-[50px] bg-[#f0f0f5] py-8">
-
+      <div className="max-w-[1200px] mx-auto px-2 pb-[50px] bg-[#f0f0f5] py-8">
         <div className="flex col justify-between items-center mb-20">
-            <div className="text-xl font-bold mr-50">{data.appDownload.title}</div>
-            <div className="flex col gap-10 items-center">
+          <div className="text-xl font-bold mr-50">{data.appDownload.title}</div>
+          <div className="flex col gap-10 items-center">
             {data.appDownload.stores.map((store) => (
-              <a 
+              <a
                 key={store.name}
                 href="#"
                 className="transition-transform hover:scale-105"
                 aria-label={`Download from ${store.name}`}
               >
-                <img 
-                  className="w-[180px] sm:w-[200px] h-auto" 
-                  src={store.image} 
+                <img
+                  className="w-[180px] sm:w-[200px] h-auto"
+                  src={store.image}
                   alt={store.alt}
                 />
               </a>
             ))}
-            </div>
+          </div>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo and Copyright */}
           <div className="flex flex-col col-span-2 md:col-span-1">
-            <img 
-              src={data.branding.logo} 
-              alt={data.branding.logoAlt} 
+            <img
+              src={data.branding.logo}
+              alt={data.branding.logoAlt}
               className="w-[160px] h-auto mb-4"
             />
             <p className="text-sm text-gray-600 font-medium">
@@ -138,27 +138,41 @@ function Footer(){
                   <h3 className="text-sm font-bold text-gray-800 mb-3">
                     {section.title}
                   </h3>
-                  <ul className="space-y-2">
-                    {section.links.map((link) => (
-                      <li key={link.text}>
-                        <a 
-                          href={link.url}
-                          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                        >
-                          {link.text}
-                        </a>
-                      </li>
-                    ))}
+                  <ul className={section.title === "Socials" ? "flex flex-row  cursor-pointer" : "space-y-2"}>
+                    {section.links.map((link) =>
+                      "icon" in link ? (
+                        <li key={link.text}>
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={link.text}
+                            title={link.text}
+                            className="p-2 rounded-lg text-gray-600 hover:text-gray-900 transition hover:bg-gray-200 flex items-center justify-center"
+                          >
+                            <link.icon size={20} />
+                          </a>
+                        </li>
+                      ) : (
+                        <li key={link.text}>
+                          <a
+                            href={link.url}
+                            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                          >
+                            {link.text}
+                          </a>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
               ))}
             </div>
           ))}
-
         </div>
       </div>
     </footer>
-    )
+  );
 }
 
 export default Footer;
