@@ -48,7 +48,8 @@ function Footer(){
           links: [
             { text: "Terms & Conditions", url: "/terms" },
             { text: "Cookie Policy", url: "/cookies" },
-            { text: "Privacy Policy", url: "/privacy" }
+            { text: "Privacy Policy", url: "/privacy" },
+            { text: "Investor Relations", url: "/investor" }
           ]
         }
       ]
@@ -82,12 +83,12 @@ function Footer(){
         },
 
         {
-          title: "Socials",
+          title: "Social Links",
           links: [
             { text: "LinkedIn", icon: FaLinkedin, url: "https://www.linkedin.com/company/swiggy-in/posts/?feedView=all" },
             { text: "Instagram", icon: FaInstagram, url: "https://instagram.com/swiggyindia" },
             { text: "GitHub", icon: FaFacebook, url: "https://www.facebook.com/swiggy.in/" },
-            { text: "Twitter", icon: FaPinterest, url: "https://in.pinterest.com/swiggyindia/" },
+            { text: "Pinterest", icon: FaPinterest, url: "https://in.pinterest.com/swiggyindia/" },
             { text: "Twitter", icon: FaTwitter, url: "https://x.com/Swiggy" }
           ]
         }
@@ -127,18 +128,18 @@ function Footer(){
               alt={data.branding.logoAlt}
               className="w-[160px] h-auto mb-4"
             />
-            <p className="text-sm text-gray-600 font-medium">
+            <p className="text-l text-gray-600 font-medium">
               {data.branding.copyright}
             </p>
           </div>
           {data.columns.map((column, columnIndex) => (
             <div key={columnIndex} className="flex flex-col gap-8">
-              {column.sections.map((section) => (
-                <div key={section.title}>
-                  <h3 className="text-sm font-bold text-gray-800 mb-3">
+              {column.sections.map((section,index) => (
+                <div key={section.title} className={index !== column.sections.length - 1 ? "mb-[100px]" : ""}>
+                  <h3 className="text-l font-bold text-gray-800 mb-3">
                     {section.title}
                   </h3>
-                  <ul className={section.title === "Socials" ? "flex flex-row  cursor-pointer" : "space-y-2"}>
+                  <ul className={section.title === "Social Links" ? "flex flex-row  cursor-pointer" : "space-y-4"}>
                     {section.links.map((link) =>
                       "icon" in link ? (
                         <li key={link.text}>
@@ -157,7 +158,7 @@ function Footer(){
                         <li key={link.text}>
                           <a
                             href={link.url}
-                            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                            className="text-md text-gray-600 hover:text-gray-900 transition-colors"
                           >
                             {link.text}
                           </a>
