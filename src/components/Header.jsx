@@ -49,6 +49,25 @@ function Header(){
         },
     ]
 
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    // Allow only digits, max 10
+    if (/^\d{0,10}$/.test(value)) {
+      setPhone(value);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (phone.length !== 10) {
+      setError("Phone number must be 10 digits");
+      return;
+    }
+  };
+
     return (
         <>
         <SidePanel isOpen={toggle} onClose={hideSideMenu}>
@@ -76,53 +95,35 @@ function Header(){
         <SidePanel isOpen={toggleSignIn} onClose={hideSignIn} position="right">
             <div className="pt-8 ">
                 <div className="mb-[30px]"><GoX onClick={hideSignIn} className="text-2xl cursor-pointer"/></div>
-                <div className="mb-6 text-xl font-semibold">Sign in to continue</div>
+                <div className="flex justify-between mb-8">
+                <div className="flex flex-col">
+                <p className="mb-2 text-2xl font-semibold">Login</p>
+                <p className="mb-4 text-md ">or <span className="text-[#ff5200]">create an account</span></p>
+                <hr className="w-10 border-t-2 "/>
+                </div>
+                <img src="/images/Image-login.png" className="h-[100px] w-[105px]"/>
+                </div>
                 <div className="space-y-3">
-                    <input type="email" placeholder="Email" className="w-full h-[48px] border border-gray-300 rounded px-3 focus:outline-none" />
-                    <input type="password" placeholder="Password" className="w-full h-[48px] border border-gray-300 rounded px-3 focus:outline-none" />
-                    <button className="w-full h-[48px] bg-[#ef4444] text-white rounded hover:opacity-90">Sign In</button>
+                <form className="space-y-3" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Phone Number"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    className="w-full h-[48px] border border-gray-300 px-3 focus:outline-none"
+                />
+                {error && <div className="text-red-500 text-sm">{error}</div>}
+                <button
+                    type="submit"
+                    className="w-full h-[48px] bg-[#ff5200] text-white rounded hover:shadow-lg"
+                >
+                    Login
+                </button>
+                <p className="text-[12px]">By clicking on Login, I accept the <Link className="font-semibold" href={"/privacy"} >Terms & Conditions</Link> & <Link className="font-semibold" href={"/terms"}> Privacy Policy </Link></p>
+                </form>
                 </div>
             </div>
         </SidePanel>
-
-        
-
-
-        <div 
-            className="black-overlay w-full h-full fixed cursor-pointer px-2" 
-            style={{
-                opacity:toggle?1:0,
-                visibility:toggle?"visible":"hidden",
-                zIndex:9999999999999
-            }} 
-            onClick={hideSideMenu}
-        >
-            <div className={` h-full w-2/5 bg-white shadow-lg pl-30 pr-[40px] absolute transform transition-transform duration-500 ease-in-out
-                ${toggle ? "translate-x-0" : "-translate-x-full"}`} onClick={(e) => e.stopPropagation()}>
-                <div className="pt-8 ">
-                    <div className="mb-[30px]"><GoX onClick={hideSideMenu} className="text-2xl cursor-pointer"/></div>
-                    <div className="border border-gray-300 shadow-[0_0_15px_rgba(0,0,0,0.25)] h-[50px] mb-[20px] flex items-center">
-                        <input className="pl-[20px] pr-[72px] w-full focus:outline-none" placeholder="Search for area, street name..." ></input>
-                    </div>
-                </div>
-
-                <button className="border border-gray-300 h-[85px] mt-8 w-full flex items-center justify-center flex-col">
-                    <div className="pl-[20px] pr-[72px] w-full flex flex-col" >
-                    <div className="flex items-center w-full gap-2 cursor-pointer">
-                    <CiGps className="text-xl "/>
-                    <div className="hover:text-[#ef4444]">Get current location</div>
-                    </div>
-                    <div className="flex items-center pl-6 text-gray-400 text-xs">
-                        using GPS
-                    </div>
-                    </div>
-
-                </button>
-            </div>
-        </div>
-
-
-
 
         <header className="p-[15px] shadow-xl sticky top-0 bg-white z-[9999]">
             <div className='mx-30 flex items-center'>
