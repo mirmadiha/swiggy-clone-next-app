@@ -42,13 +42,13 @@ function OnlineDelivery(){
             <div className="max-w-[1200px] mx-auto flex gap-3 mt-6 mb-8">
                 <div className="p-3 rounded-md shadow">Filter</div>
                 <div className="p-3 rounded-md shadow">Sort by</div>
-                {/* <div className="p-3 rounded-md shadow">Fast Delivery</div>
+                <div className="p-3 rounded-md shadow">Fast Delivery</div>
                 <div className="p-3 rounded-md shadow">New on Swiggy</div>
                 <div className="p-3 rounded-md shadow">Rating 4.0+</div>
                 <div className="p-3 rounded-md shadow">Pure Veg</div>
                 <div className="p-3 rounded-md shadow">Offers</div>
                 <div className="p-3 rounded-md shadow">Rs.300-Rs.600</div>
-                <div className="p-3 rounded-md shadow">Less than Rs.300</div> */}
+                <div className="p-3 rounded-md shadow">Less than Rs.300</div>
             </div>
             </div>
 
