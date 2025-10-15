@@ -5,7 +5,7 @@ export default function SidePanel({ isOpen, onClose, children, widthClass = "w-2
   const translateClass = isRight ? (isOpen ? "translate-x-0" : "translate-x-full") : (isOpen ? "translate-x-0" : "-translate-x-full");
   return (
     <div
-      className="black-overlay w-full h-full fixed cursor-pointer px-2"
+      className="black-overlay w-full h-full fixed px-2"
       style={{
         opacity: isOpen ? 1 : 0,
         visibility: isOpen ? "visible" : "hidden",

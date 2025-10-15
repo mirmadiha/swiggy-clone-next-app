@@ -10,6 +10,8 @@ import SidePanel from "./SidePanel";
 function Header(){
     const[toggle,setToggle]=useState(false);
     const[toggleSignIn,setToggleSignIn]=useState(false);
+    const [showReferral, setShowReferral] = useState(false);
+
     const showSignIn = useCallback(() => setToggleSignIn(true), []);
     const hideSignIn = useCallback(() => {
         setToggleSignIn(false); 
@@ -20,6 +22,18 @@ function Header(){
 
     const showSideMenu = useCallback(() => setToggle(true), []);
     const hideSideMenu = useCallback(() => setToggle(false), []);
+
+    const [toggleSignUp, setToggleSignUp] = useState(false);
+
+    const showSignUp = useCallback(() => {
+  setToggleSignUp(true);
+  setToggleSignIn(false); 
+}, []);
+
+const hideSignUp = useCallback(() => {setToggleSignUp(false);
+        setPhone("");
+        setName("");
+        SetEmail("")},[]);
 
     const links=[
         {
@@ -107,7 +121,7 @@ function Header(){
                 <div className="flex justify-between mb-8">
                 <div className="flex flex-col">
                 <p className="mb-2 text-2xl font-semibold">Login</p>
-                <p className="mb-4 text-md ">or <span className="text-[#ff5200]">create an account</span></p>
+                <p className="mb-4 text-md ">or <span className="text-[#ff5200] cursor-pointer" onClick={showSignUp}>create an account</span></p>
                 <hr className="w-10 border-t-2 "/>
                 </div>
                 <img src="/images/Image-login.png" alt="Login illustration" className="h-[100px] w-[105px]"/>
@@ -122,6 +136,7 @@ function Header(){
                     className="w-full h-[48px] border border-gray-300 px-3 focus:outline-none"
                 />
                 {error && <div className="text-red-500 text-sm">{error}</div>}
+        
                 <button
                     type="submit"
                     className="w-full h-[48px] bg-[#ff5200] text-white rounded hover:shadow-lg"
@@ -133,6 +148,86 @@ function Header(){
                 </div>
             </div>
         </SidePanel>
+
+
+
+
+
+    <SidePanel isOpen={toggleSignUp} onClose={hideSignUp} position="right">
+  <div className="pt-8 ">
+    <div className="mb-[30px]">
+      <GoX onClick={hideSignUp} className="text-2xl cursor-pointer" />
+    </div>
+    <div className="flex justify-between mb-8">
+      <div className="flex flex-col">
+        <p className="mb-2 text-2xl font-semibold">Sign Up</p>
+        <p className="mb-4 text-md ">
+          or{" "}
+          <span
+            className="text-[#ff5200] cursor-pointer"
+            onClick={showSignIn}
+          >
+            login to your account
+          </span>
+        </p>
+        <hr className="w-10 border-t-2 " />
+      </div>
+      <img
+        src="/images/Image-login.png"
+        alt="Sign up illustration"
+        className="h-[100px] w-[105px]"
+      />
+    </div>
+    <div className="space-y-3">
+      <form >
+
+        <input
+          type="text"
+          placeholder="Phone Number"
+          className="w-full h-[60px] border-t border-l border-r border-gray-300 px-3 focus:outline-none"
+
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          className="w-full h-[60px] border-t border-l border-r border-gray-300 px-3 focus:outline-none"
+
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full h-[60px] border border-gray-300 px-3 focus:outline-none"
+
+        />
+
+        {!showReferral? (
+        <p
+            className="text-blue-600 font-semibold cursor-pointer mt-4 mb-4"
+            onClick={() => setShowReferral(true)}
+        >
+            Have a referral code?
+        </p>
+        ) : (
+        <input
+            type="text"
+            placeholder="Enter referral code"
+            className="w-full h-[60px] border-b border-l border-r border-gray-300 px-3 focus:outline-none mb-4"
+        />
+        )}
+
+
+        <button
+          type="submit"
+          className="w-full h-[48px] bg-[#ff5200] text-white rounded hover:shadow-lg"
+        >
+          CONTINUE
+        </button>
+        <p className="text-[12px]">By creating an account, I accept the <Link className="font-semibold cursor-pointer" href={"/privacy"} >Terms & Conditions</Link> & <Link className="font-semibold cursor-pointer" href={"/terms"}> Privacy Policy </Link></p>
+      </form>
+    </div>
+  </div>
+</SidePanel>
+
 
 
 
