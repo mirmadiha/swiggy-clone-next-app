@@ -10,11 +10,16 @@ import SidePanel from "./SidePanel";
 function Header(){
     const[toggle,setToggle]=useState(false);
     const[toggleSignIn,setToggleSignIn]=useState(false);
+    const showSignIn = useCallback(() => setToggleSignIn(true), []);
+    const hideSignIn = useCallback(() => {
+        setToggleSignIn(false); 
+        setPhone("");
+        setError("");},  []);
+    const [phone, setPhone] = useState("");
+    const [error, setError] = useState("");
 
     const showSideMenu = useCallback(() => setToggle(true), []);
     const hideSideMenu = useCallback(() => setToggle(false), []);
-    const showSignIn = useCallback(() => setToggleSignIn(true), []);
-    const hideSignIn = useCallback(() => setToggleSignIn(false), []);
 
     const links=[
         {
@@ -49,24 +54,25 @@ function Header(){
         },
     ]
 
-  const [phone, setPhone] = useState("");
-  const [error, setError] = useState("");
+    const handlePhoneChange = (e) => {
+        const value = e.target.value;
+        // Allow only digits, max 10
+        if (/^\d{0,10}$/.test(value)) {
+          setPhone(value);
+        }
+        if(error){
+            setError("");
+        }
+      };
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (phone.length !== 10) {
+          setError("Phone number must be 10 digits");
+          return;
+        }
+      };
 
-  const handlePhoneChange = (e) => {
-    const value = e.target.value;
-    // Allow only digits, max 10
-    if (/^\d{0,10}$/.test(value)) {
-      setPhone(value);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (phone.length !== 10) {
-      setError("Phone number must be 10 digits");
-      return;
-    }
-  };
 
     return (
         <>
@@ -92,6 +98,9 @@ function Header(){
             </button>
         </SidePanel>
 
+
+
+
         <SidePanel isOpen={toggleSignIn} onClose={hideSignIn} position="right">
             <div className="pt-8 ">
                 <div className="mb-[30px]"><GoX onClick={hideSignIn} className="text-2xl cursor-pointer"/></div>
@@ -101,7 +110,7 @@ function Header(){
                 <p className="mb-4 text-md ">or <span className="text-[#ff5200]">create an account</span></p>
                 <hr className="w-10 border-t-2 "/>
                 </div>
-                <img src="/images/Image-login.png" className="h-[100px] w-[105px]"/>
+                <img src="/images/Image-login.png" alt="Login illustration" className="h-[100px] w-[105px]"/>
                 </div>
                 <div className="space-y-3">
                 <form className="space-y-3" onSubmit={handleSubmit}>
@@ -124,6 +133,9 @@ function Header(){
                 </div>
             </div>
         </SidePanel>
+
+
+
 
         <header className="p-[15px] shadow-xl sticky top-0 bg-white z-[9999]">
             <div className='mx-30 flex items-center'>
