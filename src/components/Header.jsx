@@ -10,6 +10,7 @@ import SidePanel from "./SidePanel";
 function Header(){
     const[toggle,setToggle]=useState(false);
     const[toggleSignIn,setToggleSignIn]=useState(false);
+    const [toggleSignUp, setToggleSignUp] = useState(false);
     const [showReferral, setShowReferral] = useState(false);
 
     const showSignIn = useCallback(() => setToggleSignIn(true), []);
@@ -23,17 +24,34 @@ function Header(){
     const showSideMenu = useCallback(() => setToggle(true), []);
     const hideSideMenu = useCallback(() => setToggle(false), []);
 
-    const [toggleSignUp, setToggleSignUp] = useState(false);
+const [signupPhone, setSignupPhone] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [signupError, setSignupError] = useState("");
 
     const showSignUp = useCallback(() => {
-  setToggleSignUp(true);
-  setToggleSignIn(false); 
-}, []);
+        setToggleSignUp(true);
+        setToggleSignIn(false);
+    }, []);
 
-const hideSignUp = useCallback(() => {setToggleSignUp(false);
-        setPhone("");
+    const switchToSignIn = useCallback(() => {
+        setToggleSignUp(false);
+        setToggleSignIn(true);
+        setSignupPhone("");
         setName("");
-        SetEmail("")},[]);
+        setEmail("");
+        setSignupError("");
+        setShowReferral(false);
+    }, []);
+
+    const hideSignUp = useCallback(() => {
+        setToggleSignUp(false);
+        setSignupPhone("");
+        setName("");
+        setEmail("");
+        setSignupError("");
+        setShowReferral(false);
+    }, []);
 
     const links=[
         {
@@ -79,13 +97,57 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
         }
       };
     
-      const handleSubmit = (e) => {
+      const handleLoginSubmit = (e) => {
         e.preventDefault();
         if (phone.length !== 10) {
           setError("Phone number must be 10 digits");
           return;
         }
       };
+
+       const handleSignupPhoneChange = (e) => {
+        const value = e.target.value;
+        if (/^\d{0,10}$/.test(value)) {
+            setSignupPhone(value);
+        }
+        if (signupError) {
+            setSignupError("");
+        }
+    };
+
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+        if (signupError) {
+            setSignupError("");
+        }
+    };
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+        if (signupError) {
+            setSignupError("");
+        }
+    };
+
+    const handleSignupSubmit = (e) => {
+        e.preventDefault();
+        
+        if (signupPhone.length !== 10) {
+            setSignupError("Phone number must be 10 digits");
+            return;
+        }
+        if (name.trim() === "") {
+            setSignupError("Name is required");
+            return;
+        }
+        if (email.trim() === "" || !email.includes("@")) {
+            setSignupError("Valid email is required");
+            return;
+        }
+        
+        // Handle signup logic here
+        console.log("Signup with:", { phone: signupPhone, name, email });
+    };
 
 
     return (
@@ -127,7 +189,7 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
                 <img src="/images/Image-login.png" alt="Login illustration" className="h-[100px] w-[105px]"/>
                 </div>
                 <div className="space-y-3">
-                <form className="space-y-3" onSubmit={handleSubmit}>
+                <form className="space-y-3" onSubmit={handleLoginSubmit}>
                 <input
                     type="text"
                     placeholder="Phone Number"
@@ -139,7 +201,7 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
         
                 <button
                     type="submit"
-                    className="w-full h-[48px] bg-[#ff5200] text-white rounded hover:shadow-lg"
+                    className="w-full h-[48px] bg-[#ff5200] text-white  cursor-pointer rounded hover:shadow-lg"
                 >
                     Login
                 </button>
@@ -165,7 +227,7 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
           or{" "}
           <span
             className="text-[#ff5200] cursor-pointer"
-            onClick={showSignIn}
+            onClick={switchToSignIn}
           >
             login to your account
           </span>
@@ -179,26 +241,34 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
       />
     </div>
     <div className="space-y-3">
-      <form >
+      <form onSubmit={handleSignupSubmit}>
 
         <input
           type="text"
           placeholder="Phone Number"
           className="w-full h-[60px] border-t border-l border-r border-gray-300 px-3 focus:outline-none"
+          value={signupPhone}
+          onChange={handleSignupPhoneChange}
 
         />
         <input
           type="text"
           placeholder="Name"
           className="w-full h-[60px] border-t border-l border-r border-gray-300 px-3 focus:outline-none"
+          value={name}
+          onChange={handleNameChange}
 
         />
         <input
           type="email"
           placeholder="Email"
           className="w-full h-[60px] border border-gray-300 px-3 focus:outline-none"
+          value={email}
+          onChange={handleEmailChange}
 
         />
+
+        {signupError && <div className="text-red-500 text-sm mt-2">{signupError}</div>}
 
         {!showReferral? (
         <p
@@ -218,7 +288,7 @@ const hideSignUp = useCallback(() => {setToggleSignUp(false);
 
         <button
           type="submit"
-          className="w-full h-[48px] bg-[#ff5200] text-white rounded hover:shadow-lg"
+          className="w-full h-[48px] bg-[#ff5200] text-white cursor-pointer rounded hover:shadow-lg"
         >
           CONTINUE
         </button>
