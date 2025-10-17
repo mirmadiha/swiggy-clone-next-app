@@ -1,9 +1,9 @@
-function Corpoarate(){
+function Corporate(){
     return(
         <div>
-            Corpoarate
+            Corporate
         </div>
     )
 }
 
-export default Corpoarate;
+export default Corporate;

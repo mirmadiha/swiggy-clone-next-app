@@ -7,7 +7,12 @@ import { CiShoppingCart , CiGps} from "react-icons/ci";
 import {useCallback, useState} from "react";
 import Navigation from "./Navigation"
 import SidePanel from "./SidePanel";
+import { usePathname } from 'next/navigation';
 function Header(){
+    const pathName=usePathname();
+    const isCorporate=pathName.startsWith('/swiggy-corporate');
+
+
     const[toggle,setToggle]=useState(false);
     const[toggleSignIn,setToggleSignIn]=useState(false);
     const [toggleSignUp, setToggleSignUp] = useState(false);
@@ -297,20 +302,30 @@ const [signupPhone, setSignupPhone] = useState("");
     </div>
   </div>
 </SidePanel>
+{/* {isCorporaten? () :()} */}
 
 
 
 
-
-        <header className="p-[15px] shadow-xl sticky top-0 bg-white z-[9999]">
-            <div className='mx-30 flex items-center'>
+        <header className={`${isCorporate?(`p-[32px]`):(`p-[15px]`)} shadow-xl sticky top-0 bg-white z-[9999]`}>
+            <div className={`${isCorporate?(`mx-[32px]`):(`mx-30`)} flex items-center`}>
+                {isCorporate ? (
+                <Link href="/swiggy-corporate" className='w-[200px] block'>
+                    <img src="/swiggy-corporate-logo.png" alt="corporate-logo" className="w-full cursor-pointer" />
+                </Link>
+                ) : 
+                (
                 <Link href="/" className='w-[60px] block'>
                     <img src="/logo.png" alt="logo" className="w-full cursor-pointer" />
                 </Link>
+                )}
+                
+                {!isCorporate && (
                 <div className="flex items-center ml-10 cursor-pointer" onClick={showSideMenu}>
                     <div className="text-xl font-medium border-b-2 text-black hover:text-[#ef4444] cursor-pointer transition-colors duration-200"> other </div>
                     <span className="ml-2 text-[#ff5200] text-xl"> <GoChevronDown /> </span>
                 </div>
+                )}
 
                 <nav className=" md:ml-60 flex items-center place-content-between w-full">
                     <Navigation onSignInClick={showSignIn}/>
