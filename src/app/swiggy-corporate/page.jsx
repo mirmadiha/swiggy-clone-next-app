@@ -1,7 +1,8 @@
+import Banner from './components/Banner'
 function Corporate(){
     return(
         <div>
-            Corporate
+            <Banner/>
         </div>
     )
 }
